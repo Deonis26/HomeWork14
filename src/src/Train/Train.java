@@ -39,16 +39,37 @@ public class Train implements AbstractTrain {
 
     }
 
-
-
     @Override
-    public void unloadingTrain() {
-
+    public void trainLoading() {  //загрузка поезда
+        if (status == "в пути") {
+            throw new NotEnoughFuelException("необходимо остановить поезд");
+        } else {
+        if (type==TrafficCongestion.TRANSPORT_IS_LOADED){
+            throw new NotEnoughFuelException("поезд полный");
+        } else {
+            System.out.println("загрузка разрешена");
+        }
+        }
     }
 
     @Override
-    public void statusChange() {
+    public void unloadingTrain() {  //разгрузка поезда
+        if (status == "в пути") {
+            throw new NotEnoughFuelException("необходимо остановить поезд");
+        } else {
+           // System.out.println("рагрузка разрешена");
+            if (type==TrafficCongestion.TRANSPORT_IS_LOADED) {
+                throw new NotEnoughFuelException("поезд пустой");
+            } else {
+                System.out.println("разгрузка разрешена");
+            }
+            }
+        }
 
+    @Override
+    public void statusChange(String status) {   //статус поезда
+        this.status=status;
+        System.out.println(status);
     }
 
     @Override
